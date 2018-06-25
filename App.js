@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { registerScreens } from './src/screens';
 
 import configureStore from './src/store/configureStore';
-import Home from './src/screens/Home'
+import Home from './src/screens/Home';
 
 import { defaultNavigator, defaultTabs } from './src/utils/style';
 
@@ -13,21 +13,21 @@ export const store = configureStore();
 registerScreens(store, Provider);
 
 const navigatorStyle = {
-	navBarTranslucent: true,
-	drawUnderNavBar: false,
-	navBarTextColor: 'white',
-	navBarButtonColor: 'white',
-	statusBarTextColorScheme: 'light',
-	drawUnderTabBar: false
+  navBarTranslucent: true,
+  drawUnderNavBar: false,
+  navBarTextColor: 'white',
+  navBarButtonColor: 'white',
+  statusBarTextColorScheme: 'light',
+  drawUnderTabBar: false
 };
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		//check logged in status before starting app...
-		//dispatch action so thunk can be used to update state when login is successfull
-		//mapStateToProps not working on this page as it's the root of the app
-		// store.dispatch(checkAuthStatus()).then(loggedIn => {
+  constructor(props) {
+    super(props);
+    //check logged in status before starting app...
+    //dispatch action so thunk can be used to update state when login is successfull
+    //mapStateToProps not working on this page as it's the root of the app
+    // store.dispatch(checkAuthStatus()).then(loggedIn => {
     App.startApp();
   }
 
@@ -35,20 +35,57 @@ class App extends Component {
   //   return <Home />
   // }
 
-	static startApp() {
-		Navigation.startSingleScreenApp({
-			screen: {
-				screen: 'Home',
-				title: 'Welcome',
-				navigatorStyle: {
-					...defaultNavigator,
-					statusBarTextColorScheme: 'light'
-				},
-				navigatorButtons: {}
-			},
-			passProps: {},
-			animationType: 'slide-down'
-		});
-	}
+  static startApp() {
+    Navigation.startSingleScreenApp({
+      screen: {
+        screen: 'Home',
+        title: 'Welcome',
+        navigatorStyle: {
+          ...defaultNavigator,
+          statusBarTextColorScheme: 'light'
+        },
+        navigatorButtons: {}
+      },
+      passProps: {},
+      animationType: 'slide-down'
+    });
+  }
+
+  static startAppLoggedIn() {
+    Navigation.startTabBasedApp({
+      tabs: [
+        {
+          label: 'Words',
+          screen: 'Words',
+          title: 'Words',
+          navigatorStyle: defaultNavigator
+        },
+        {
+          label: 'Courses',
+          screen: 'Courses',
+          title: 'Courses',
+          navigatorStyle: defaultNavigator
+        },
+        {
+          label: 'Books',
+          screen: 'Books',
+          title: 'Books',
+          navigatorStyle: defaultNavigator
+        },
+        {
+          label: 'Video',
+          screen: 'Video',
+          title: 'Video',
+          navigatorStyle: defaultNavigator
+        },
+        {
+          label: 'Settings',
+          screen: 'Settings',
+          title: 'Settings',
+          navigatorStyle: defaultNavigator
+        }
+      ]
+    });
+  }
 }
 export default App;

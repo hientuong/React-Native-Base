@@ -55,11 +55,26 @@ const LoginButton = styled.Text`
 class Login extends Component {
 	constructor(props) {
 		super(props);
+		this.onSetEmail = this.onSetEmail.bind(this)
+		this.onSetPassword = this.onSetPassword.bind(this)
+		this.onLoginTapped = this.onLoginTapped.bind(this)
 	}
 
 	state = {
 		email: null,
 		password: null
+	}
+
+	onSetEmail = (email) => {
+		this.setState({email: email})
+	}
+
+	onSetPassword = (password) => {
+		this.setState({password: password})
+	}
+
+	onLoginTapped = () => {
+		this.props.login(this.state.email, this.state.password)
 	}
 
 	render() {
@@ -90,10 +105,8 @@ class Login extends Component {
                     onChangeText={this.onSetPassword}
                 // ref={'passwordInput'}
                 />
-
-                <LoginButtonContainer onPress={() => {
-					this.props.login('abcdef123@gmail.com', '1')
-				}}>
+				
+                <LoginButtonContainer onPress={this.onLoginTapped}>
                     <LoginButton>LOGIN</LoginButton>
                 </LoginButtonContainer>
             </LoginContainer>
